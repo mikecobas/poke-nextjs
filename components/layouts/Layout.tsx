@@ -1,6 +1,7 @@
 import { PageProps } from "@/interfaces/global.interface";
 import Head from "next/head";
 import { FC } from "react";
+import Navbar from "../ui/Navbar";
 
 
 const Layout: FC<PageProps> = ({children, title, description, keywords}) => {
@@ -12,8 +13,10 @@ const Layout: FC<PageProps> = ({children, title, description, keywords}) => {
       <meta name="description" content={description || 'info pokemon'} />
       <meta name="keywords" content={keywords || 'pokemon, pokedex'}/>
     </Head>
-    {/*navbar*/}
-    <main>
+    <Navbar />
+    <main style={{
+      padding: '0px 20px'
+    }}>
       {children}
     </main>
   </>);
