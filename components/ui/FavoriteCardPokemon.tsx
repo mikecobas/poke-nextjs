@@ -2,13 +2,13 @@ import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { SmallPokemon } from "@/interfaces";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-const PokemonCard = ({ id, name, url, img }: SmallPokemon):ReactElement => {
+interface PokeFav{
+  id:number,
+}
+const FavoriteCardPokemon = ({ id }: PokeFav):ReactElement => {
   const router = useRouter()
   const onClick = ()=>{
     router.push(`/pokemon/${id}`);
-  }
-  const onClick2 = ()=>{
-    router.push(`/name/${name}`);
   }
   return (
     <Card
@@ -21,18 +21,14 @@ const PokemonCard = ({ id, name, url, img }: SmallPokemon):ReactElement => {
       <CardBody>
         <div className="flex items-center justify-center">
           <Image
-            src={img}
-            alt={`#${id} ${name}`}
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+            alt={`#${id}`}
             className="w-full object-cover h-[140px]"
           />
         </div>
       </CardBody>
-      <CardFooter className="flex flex-row justify-between items-center">
-        <p className="text-gray-400">#{id}</p>
-        <p className="capitalize">{name}</p>
-      </CardFooter>
     </Card>
   );
 };
 
-export default PokemonCard;
+export default FavoriteCardPokemon;

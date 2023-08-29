@@ -6,7 +6,7 @@ import Layout from "@/components/layouts/Layout";
 import { GetStaticProps, GetStaticPaths } from "next";
 import confetti from "canvas-confetti";
 import { Pokemon } from "@/interfaces";
-
+import { PokemonListResponse } from "@/interfaces";
 import localFavorites from "@/utils/localFavorites";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import { getPokemonInfo } from "@/utils";
@@ -106,21 +106,25 @@ const PokemonPage: FC<Props> = ({ pokemon }) => {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   // const { data } = await  // your fetch function here
-  const pokemons151 = [...Array(151)].map((value, index) => `${index + 1}`);
+  const { data } = await pokeApi.get<PokemonListResponse>("/pokemon?limit=151");
+  const pokemons151: string[] = [...data.results].map(
+    (pokemon, index) => `${pokemon.name}`
+  );
+
   return {
-    paths: pokemons151.map((id) => ({
-      params: { id },
+    paths: pokemons151.map((name) => ({
+      params: { name },
     })),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id } = params as { id: string };
+  const { name } = params as { name: string };
 
   return {
     props: {
-      pokemon:getPokemonInfo(id)
+      pokemon: getPokemonInfo(name),
     },
   };
 };
