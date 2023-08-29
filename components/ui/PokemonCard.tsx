@@ -5,11 +5,9 @@ import { ReactElement } from "react";
 const PokemonCard = ({ id, name, url, img }: SmallPokemon):ReactElement => {
   const router = useRouter()
   const onClick = ()=>{
-    router.push(`/pokemon/${id}`);
-  }
-  const onClick2 = ()=>{
     router.push(`/name/${name}`);
   }
+
   return (
     <Card
       shadow="sm"
